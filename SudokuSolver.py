@@ -27,18 +27,18 @@ def solveBoard(B):
 
     return False
 
-def printBoard(B):
+def printBoard(B,solFile):
     for i in range(len(B)):
         if i%3 == 0 and i!=0:
-            print("- - - - - - - - - - - ")
+            solFile.write("- - - - - - - - - - - \n")
         for j in range(len(B[0])):
             if j%3 == 0 and j!=0:
-                print("| ",end="")
+                solFile.write("| ")
             if j == 8:
-                print(str(B[i][j]))
+                solFile.write(str(B[i][j])+"\n")
             else:
-                print(str(B[i][j]) + " ", end = "")
-    print("\n")
+                solFile.write(str(B[i][j]) + " ")
+    solFile.write("\n")
 
 def findEmpty(B):
     for i in range(len(B)):
@@ -74,7 +74,11 @@ def validMove(B,num,pos):
 # myBoard[0][2] = 6
 # printBoard(myBoard)
 # print(validMove(myBoard,6,(0,2)))
-printBoard(myBoard)
+solutionFile = open("SolvedSudoku.txt","w")
+
+printBoard(myBoard,solutionFile)
 solveBoard(myBoard)
-printBoard(myBoard)
+printBoard(myBoard,solutionFile)
+
+solutionFile.close()
 
