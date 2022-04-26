@@ -1,18 +1,21 @@
 myBoard =   []
 
+#getBoard() is used to get the initial board position
 def getBoard(myBoard, quesFile):
     for line in quesFile:
         temp = [int(i) for i in line.strip().split()]
         myBoard.append(temp);
 
+
+#solveBoard() is used to solve the Sudoku using backtracking method
 def solveBoard(B):
-    # printBoard(B)
-    # print("________________________________")
     find = findEmpty(B)
+
     if not find:
         return True
     else:
         row,col = find
+    
     for i in range(1,10):
         if validMove(B,i,(row,col)):
             B[row][col] = i
@@ -22,26 +25,35 @@ def solveBoard(B):
 
     return False
 
+
+# printBoard() is used to print the board
 def printBoard(B,solFile):
     for i in range(len(B)):
         if i%3 == 0 and i!=0:
             solFile.write("- - - - - - - - - - - \n")
+        
         for j in range(len(B[0])):
             if j%3 == 0 and j!=0:
                 solFile.write("| ")
+            
             if j == 8:
                 solFile.write(str(B[i][j])+"\n")
             else:
                 solFile.write(str(B[i][j]) + " ")
+    
     solFile.write("\n")
 
+#findEmpty() is used to find the next empty position in the board
 def findEmpty(B):
     for i in range(len(B)):
         for j in range(len(B[0])):
             if B[i][j] == 0:
                 return (i,j) # return (row,col)
+    
     return None
 
+
+#validMove() is used to check the validity of the number at that position
 def validMove(B,num,pos):
     #Checking row
     for i in range(len(B[0])):
@@ -64,23 +76,20 @@ def validMove(B,num,pos):
     
     return True
 
-# printBoard(myBoard)
-# print(findEmpty(myBoard))
-# myBoard[0][2] = 6
-# printBoard(myBoard)
-# print(validMove(myBoard,6,(0,2)))
+
 quesFile = open("UnsolvedSudoku.txt","r")
 
 getBoard(myBoard,quesFile)
 
-# print(myBoard)
-# print(type(myBoard))
-# print(type(myBoard[0]))
-# print(type(myBoard[0][0]))
 solutionFile = open("SolvedSudoku.txt","w")
 
+#Solving the actual board
+printBoard(myBoard,solutionFile)
+solutionFile.write("\n--------------------------------------------------------------------------\n\n\n")
 solveBoard(myBoard)
 printBoard(myBoard,solutionFile)
 
+#Closing both the Unsolved and Solved Sudoku file
+quesFile.close()
 solutionFile.close()
 
