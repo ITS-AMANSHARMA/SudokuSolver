@@ -1,14 +1,9 @@
-myBoard =   [
-    [7,8,0,4,0,0,1,2,0],
-    [6,0,0,0,7,5,0,0,9],
-    [0,0,0,6,0,1,0,7,8],
-    [0,0,7,0,4,0,2,6,0],
-    [0,0,1,0,5,0,9,3,0],
-    [9,0,4,0,6,0,0,0,5],
-    [0,7,0,3,0,0,0,1,2],
-    [1,2,0,0,0,7,4,0,0],
-    [0,4,9,2,0,6,0,0,7]
-]
+myBoard =   []
+
+def getBoard(myBoard, quesFile):
+    for line in quesFile:
+        temp = [int(i) for i in line.strip().split()]
+        myBoard.append(temp);
 
 def solveBoard(B):
     # printBoard(B)
@@ -74,9 +69,16 @@ def validMove(B,num,pos):
 # myBoard[0][2] = 6
 # printBoard(myBoard)
 # print(validMove(myBoard,6,(0,2)))
+quesFile = open("UnsolvedSudoku.txt","r")
+
+getBoard(myBoard,quesFile)
+
+# print(myBoard)
+# print(type(myBoard))
+# print(type(myBoard[0]))
+# print(type(myBoard[0][0]))
 solutionFile = open("SolvedSudoku.txt","w")
 
-printBoard(myBoard,solutionFile)
 solveBoard(myBoard)
 printBoard(myBoard,solutionFile)
 
